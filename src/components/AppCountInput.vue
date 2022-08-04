@@ -4,19 +4,29 @@ defineProps({
 })
 
 const emit = defineEmits(['update:modelValue', 'input'])
-const updateValue = (value) => emit('update:modelValue', value)
+const updateValue = (value) => {
+	if (value !== '') {
+		emit('update:modelValue', value)
+	}
+}
 </script>
 <template>
 	<span>
 		<button
-			class="cursor-pointer bg-gray-200 px-2 rounded-l"
+			class="cursor-pointer bg-gray-200 text-slate-900 px-2 rounded-l"
 			@click="updateValue(modelValue > 0 ? modelValue - 1 : null)"
 		>
 			-
 		</button>
-		<input :value="modelValue" type="number" min="0" @input="updateValue" />
+		<input
+			class="text-gray-200"
+			:value="modelValue"
+			type="number"
+			min="0"
+			@input="updateValue($event.target.value)"
+		/>
 		<button
-			class="bg-gray-200 px-2 rounded-r cursor-pointer"
+			class="bg-gray-200 text-slate-900 px-2 rounded-r cursor-pointer"
 			@click="updateValue(modelValue + 1)"
 		>
 			+
